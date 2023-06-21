@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Image,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Image, StatusBar, Text, View } from "react-native";
 import CustomTextInput from "../../components/CustomTextInput";
 import RoundedButton from "../../components/RoundedButton";
 import useViewModel from "./ViewModel";
