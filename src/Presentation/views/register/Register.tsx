@@ -4,6 +4,7 @@ import CustomTextInput from "../../components/CustomTextInput";
 import RoundedButton from "../../components/RoundedButton";
 import useViewModel from "./ViewModel";
 import styles from "./Styles";
+import Toast from "../../components/Toast";
 
 const RegisterScreen = () => {
   const {
@@ -13,9 +14,26 @@ const RegisterScreen = () => {
     phone,
     password,
     confirmPassword,
+    errorMessage,
     onChange,
     register,
   } = useViewModel();
+
+  const [toastVisible, setToastVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    if (errorMessage != "") {
+      showToast();
+      toastVisible && <Toast message={`${errorMessage}`} />;
+    }
+  }, [errorMessage]);
+
+  const showToast = () => {
+    setToastVisible(true);
+    setTimeout(() => {
+      setToastVisible(false);
+    }, 2000);
+  };
 
   return (
     <View style={styles.container}>
@@ -90,9 +108,15 @@ const RegisterScreen = () => {
             secureTextEntry={true}
           />
           <View style={{ marginTop: 30 }}>
-            <RoundedButton text="Sign up" onPress={() => register()} />
+            <RoundedButton
+              text="Sign up"
+              onPress={() => {
+                register();
+              }}
+            />
           </View>
         </ScrollView>
+        {toastVisible && <Toast message={`${errorMessage}`} />}
       </View>
     </View>
   );
